@@ -15,6 +15,13 @@ jobs:
     - name: Unzip project
       run: unzip gymbro.zip -d .
 
+    - name: Auto-Inject Logo & Edit Manifest
+      run: |
+        mkdir -p app/src/main/res/drawable
+        mv app_logo.png app/src/main/res/drawable/
+        sed -i 's/android:icon="[^"]*"/android:icon="@drawable\/app_logo"/g' app/src/main/AndroidManifest.xml
+        sed -i 's/android:roundIcon="[^"]*"/android:roundIcon="@drawable\/app_logo"/g' app/src/main/AndroidManifest.xml
+
     - name: set up JDK 17
       uses: actions/setup-java@v4
       with:
